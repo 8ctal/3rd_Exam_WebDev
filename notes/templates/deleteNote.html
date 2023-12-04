@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extraHead %}
+<link rel="stylesheet" href="../../static/css/createNote.css" defer>
+<title>Eliminar Nota</title>
+{% endblock extraHead %}
+
+{% block body %}
+<body>
+<h1 class="display-3" id="title">Eliminar Nota</h1>
+<div class="container formulario">
+    <form method="POST" enctype="multipart/form-data">
+        <!-- Security token -->
+        {% csrf_token %}
+
+        <p>Desea eliminar esta nota: <strong>{{ note.title }}</strong> ?</p>
+        <input type="submit" value="Sí" class="btn btn-success">
+        <a type="button" class="btn btn-danger" href="{% url 'notesPage' %}">Cancelar</a>
+    </form>   
+</div>
+</body>
+{% endblock body %}

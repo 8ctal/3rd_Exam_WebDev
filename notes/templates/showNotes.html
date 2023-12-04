@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<body>
+    <div class="main-container">
+        <div id="title-container">
+            <h1 id='title'>APP DE NOTAS</h1>
+        </div>
+
+        <div id="in-out-container">
+            <!-- <button id="in-out-btn" onclick=""></button> -->
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" id="in-out-btn" class="btn btn-primary">Salir</a>
+            {% else %}
+            <a href="{% url 'login' %}" id="in-out-btn" class="btn btn-primary">Ingresar</a>
+            {% endif %}
+        </div>
+
+        <div id="new-note-container">
+            <a href="{% url 'createNotePage' %}" id="new-note-btn" class="btn btn-primary">Nueva Nota</a>
+            {% if user.is_superuser %}
+            <a href="{% url 'admin:index' %}" id="new-note-btn" class="btn btn-primary">Administración</a>
+            {% endif %}
+        </div>
+
+        <div id="notes-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="background-color: rgb(137, 177, 216)" scope="col">TÍTULO</th>
+                        <th style="background-color:rgb(137, 177, 216)" scope="col">FECHA</th>
+                        <th style="background-color:rgb(137, 177, 216)"scope="col">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for note in page_obj %}
+                    <tr>
+                        <td>{{ note.title }}</td>
+                        <td>{{note.creation_date|date:"d-m-Y"}} </td> <!-- |date: "d-m-y" formatea la fecha-->
+                        <td>
+                            <div class="actions-container">
+                                <a href="{% url 'viewNotePage' note.id page_obj.number %}"
+                                    class="btn btn-primary">Ver</a> <a href="{% url 'editNotePage' note.id %}"
+                                    class="btn btn-warning">Editar</a> <a href="{% url 'deleteNotePage' note.id %}"
+                                    class="btn btn-danger">Borrar</a>
+                        </td>
+        </div>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    <div class="pagination pag">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1" class="link-underline-dark">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }} class=" link-underline-dark"">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="link-underline-dark">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="link-underline-dark">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    </div>
+</body>
+{% endblock body %}

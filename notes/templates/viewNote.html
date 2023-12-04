@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% load static %} {% block extraHead %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/note.css' %}" defer />
+<title>Note</title>
+{% endblock extraHead %} {% block body %}
+<body>
+    <div id="main-container" class="border border-4">
+        <div id="title-container">
+            <h2>{{ note.title }}</h2>
+        </div>
+        <div id="body-container">
+            <p>{{ note.note_body }}</p>
+        </div>
+        <div id="date-container">
+            <p>Fecha de creación: {{ note.creation_date }}</p>
+        </div>
+    </div>
+    <a href="{% url 'notesPagePag'%}?page={{ page }}" class="btn btn-primary">Volver</a>
+</body>
+{% endblock body %}

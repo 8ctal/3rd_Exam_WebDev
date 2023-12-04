@@ -1,0 +1,35 @@
+body {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: rgb(207, 221, 233); */
+}
+
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-self: center;
+    margin-bottom: 5px;
+    background-color: rgb(252, 252, 252);
+    width: 80%;
+    height: 80%;
+}
+
+#title-container {
+    margin-top: 5px;
+    border-bottom: 1px solid rgb(192, 192, 192);
+}
+
+#body-container {
+    margin: 5px;
+    height: 80%;
+    font-size: 1.5em;
+}
+
+#date-container {
+    margin-left: 5px;
+}
